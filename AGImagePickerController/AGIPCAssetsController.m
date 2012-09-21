@@ -144,7 +144,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    double numberOfAssets = (double)self.assetsGroup.numberOfAssets;
+    double numberOfAssets = (double)[self.assets count];
     return ceil(numberOfAssets / [AGImagePickerController numberOfItemsPerRow]);
 }
 
@@ -299,6 +299,8 @@
                 }
                 
                 AGIPCGridItem *gridItem = [[AGIPCGridItem alloc] initWithAsset:result andDelegate:blockSelf];
+                if (![gridItem isScreenshot]) return;
+                
                 if ( blockSelf.imagePickerController.selection != nil && 
                     [blockSelf.imagePickerController.selection containsObject:result])
                 {
