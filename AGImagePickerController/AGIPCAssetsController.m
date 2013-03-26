@@ -16,6 +16,8 @@
 
 #import "AGIPCGridCell.h"
 #import "AGIPCToolbarItem.h"
+#import "MBProgressHUD.h"
+#import "UIBarButtonItem+Style.h"
 
 @interface AGIPCAssetsController ()
 
@@ -231,6 +233,7 @@
     // Navigation Bar Items
     UIBarButtonItem *doneButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction:)];
     doneButtonItem.enabled = NO;
+    [doneButtonItem becomeYellowButtonItem];
 	self.navigationItem.rightBarButtonItem = doneButtonItem;
     [doneButtonItem release];
     
@@ -284,6 +287,7 @@
 
 - (void)loadAssets
 {
+    [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     [self.assets removeAllObjects];
     
     __block AGIPCAssetsController *blockSelf = self;
@@ -299,7 +303,6 @@
                 }
                 
                 AGIPCGridItem *gridItem = [[AGIPCGridItem alloc] initWithAsset:result andDelegate:blockSelf];
-                if (![gridItem isScreenshot]) return;
                 
                 if ( blockSelf.imagePickerController.selection != nil && 
                     [blockSelf.imagePickerController.selection containsObject:result])
@@ -312,9 +315,8 @@
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
             [blockSelf reloadData];
-            
+            [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
         });
         
     });
