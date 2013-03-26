@@ -102,16 +102,6 @@ static NSUInteger numberOfSelectedGridItems = 0;
     }
 }
 
-- (BOOL)isScreenshot {
-    CGImageRef image = self.asset.aspectRatioThumbnail;
-    CGFloat height = CGImageGetHeight(image);
-    CGFloat width = CGImageGetWidth(image);
-    float aspectRatio = height / width;
-    aspectRatio = roundf(10 * aspectRatio) / 10;
-    BOOL isScreenshot = (aspectRatio == 1.5)?YES:NO;
-    return isScreenshot;
-}
-
 - (ALAsset *)asset
 {
     ALAsset *ret = nil;

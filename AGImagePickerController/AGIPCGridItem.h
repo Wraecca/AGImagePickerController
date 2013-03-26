@@ -47,7 +47,6 @@
 - (id)initWithAsset:(ALAsset *)theAsset andDelegate:(id<AGIPCGridItemDelegate>)theDelegate;
 
 - (void)tap;
-- (BOOL)isScreenshot;
 
 + (NSUInteger)numberOfSelections;
 
